@@ -1,7 +1,6 @@
-import {findStepOrder, readFile} from './functions';
+import input from './input';
+import {findStepOrder} from './functions';
 
-readFile('./input.txt').then(data => {
-    console.log('\n----------------------------------');
-    console.log('Output:', findStepOrder(data));
-    console.log('----------------------------------');
-});
+console.log('\n----------------------------------');
+console.log('Output:', findStepOrder(input));
+console.log('----------------------------------');

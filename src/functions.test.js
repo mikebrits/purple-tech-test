@@ -5,7 +5,7 @@ import {
     findEmptyNodes,
     findStepOrder,
     getStepValue,
-    manageWorkers
+    manageWorkers,
 } from './functions';
 
 describe('Dependecy Graph Generator', () => {
@@ -84,10 +84,8 @@ describe('Dependency Graph Traverser', () => {
                 'Step C must be finished before step A can begin.';
 
             let [forward, backward] = parseInput(input);
-            const output = traversePath(forward, backward);
-        } catch (e) {
-            expect(e).toBe('Circular Reference Detected');
-        }
+            expect(() => traversePath(forward, backward)).toThrow('Circular Reference Detected');
+        } catch (e) {}
     });
 });
 

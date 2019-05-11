@@ -1,4 +1,4 @@
-Step J must be finished before step E can begin.
+export default `Step J must be finished before step E can begin.
 Step X must be finished before step G can begin.
 Step D must be finished before step A can begin.
 Step K must be finished before step M can begin.
@@ -98,4 +98,4 @@ Step T must be finished before step M can begin.
 Step U must be finished before step G can begin.
 Step L must be finished before step I can begin.
 Step N must be finished before step W can begin.
-Step E must be finished before step C can begin.
+Step E must be finished before step C can begin.`;
