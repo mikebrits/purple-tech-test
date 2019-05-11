@@ -4,7 +4,7 @@ export default class WorkerManager{
     workers = [];
     totalTime = 0;
 
-    constructor(workerCount = 0, onStepComplete = () => {}, workerBaseTime = 60){
+    constructor(workerCount = 0, onStepComplete, workerBaseTime = 60){
 
         for(let i =0; i < workerCount + 1; i++){
             this.workers[i] = new Worker(onStepComplete, workerBaseTime);

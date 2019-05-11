@@ -1,17 +1,4 @@
-import fs from 'fs';
 import {traverseGraph} from './GraphTraverser';
-
-export const readFile = path => {
-    return new Promise((resolve, reject) => {
-        fs.readFile(path, 'utf-8', (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data);
-            }
-        });
-    });
-};
 
 export const findGraphExecutionTime = contents => {
     let [forward, backward] = parseInput(contents);

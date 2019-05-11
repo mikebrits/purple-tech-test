@@ -1,9 +1,8 @@
 // /* eslint-disable no-undef */
-import {findEmptyNodes, parseInput, findGraphExecutionTime} from './functions';
-import {traverseGraph} from './GraphTraverser';
+import { findEmptyNodes, parseInput, findGraphExecutionTime } from './functions';
+import { traverseGraph } from './GraphTraverser';
 
 describe('Dependency Graph Traverser', () => {
-
     it('Handles empty input', () => {
         const output = findGraphExecutionTime('');
         expect(output).toBe(0);
@@ -57,16 +56,13 @@ describe('Dependency Graph Traverser', () => {
     // This was not part of the requirement, but given enough time, eventually there would be
     // bugs that pop up because there is no requirement to track circular references.
     it('Bonus: Detects circular references', () => {
-        try {
-            const input =
-                'Step A must be finished before step B can begin.\n' +
-                'Step B must be finished before step C can begin.\n' +
-                'Step C must be finished before step A can begin.';
+        const input =
+            'Step A must be finished before step B can begin.\n' +
+            'Step B must be finished before step C can begin.\n' +
+            'Step X must be finished before step A can begin.\n' +
+            'Step C must be finished before step A can begin.';
 
-            let [forward, backward] = parseInput(input);
-            traverseGraph(forward, backward);
-        } catch (e) {
-            expect(e).toBe('Circular Reference Detected');
-        }
+        let [forward, backward] = parseInput(input);
+        expect(() => traverseGraph(forward, backward, 1, 0)).toThrow('Circular Reference Detected');
     });
 });

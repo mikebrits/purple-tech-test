@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
-import {findGraphExecutionTime, readFile} from './functions';
+import { findGraphExecutionTime } from './functions';
+import input from './input';
 
-readFile('../input.txt').then(data => {
-    console.log('\n----------------------------------');
-    console.log('Output:', findGraphExecutionTime(data));
-    console.log('----------------------------------');
-});
+console.log('\n----------------------------------');
+console.log('Output:', findGraphExecutionTime(input));
+console.log('----------------------------------');
