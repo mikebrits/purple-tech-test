@@ -1,5 +1,4 @@
 import fs from 'fs';
-import Worker from './Worker';
 
 export const readFile = (path) => {
     return new Promise((resolve, reject) => {
@@ -122,18 +121,5 @@ export const traversePath = (forward, backward) => {
 
 export const getStepValue = (char) => char.charCodeAt(0) - 65 + 1;
 
-export const manageWorkers = (numberOfWorkers) => {
-    const handleStepComplete = () => {};
-    function WorkerBench (){
-        let workers = new Array(numberOfWorkers + 1).fill(new Worker(handleStepComplete));
-    }
-    
-
-    WorkerBench.prototype.getFreeWorker = () => {
-        console.log('pew');
-    }
-
-    return WorkerBench;
-}
 
 
