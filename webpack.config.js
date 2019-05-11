@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: ['@babel/polyfill', './src/index.js'],
-  watch: true,
+  watch: false,
   mode: 'production',
   output: {
     filename: 'main.js',
