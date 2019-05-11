@@ -11,7 +11,7 @@ export default class Worker {
     }
 
     assignStep = step => {
-        this.timeRemaining = getStepValue(step, this.baseTime);
+        this.timeRemaining = getStepValue(step, this.baseTime); 
         this.ready = false;
         this.currentStep = step;
     };
