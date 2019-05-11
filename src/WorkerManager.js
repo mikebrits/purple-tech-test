@@ -2,11 +2,12 @@ import Worker from './Worker';
 
 export default class WorkerManager{
     workers = [];
+    totalTime = 0;
 
-    constructor(workerCount = 0, onStepComplete = () => {}){
+    constructor(workerCount = 0, onStepComplete = () => {}, workerBaseTime = 60){
 
         for(let i =0; i < workerCount + 1; i++){
-            this.workers[i] = new Worker(onStepComplete);
+            this.workers[i] = new Worker(onStepComplete, workerBaseTime);
         }
     }
 
@@ -16,6 +17,7 @@ export default class WorkerManager{
 
     work = () => {
         this.workers.forEach(worker => worker.work());
+        this.totalTime++;
     }
 
     assignStep = (step) => {
@@ -25,6 +27,10 @@ export default class WorkerManager{
             return true;
         }
         return false;
+    }
+
+    isBusy = () => {
+        return this.getAvailableWorkers().length < this.workers.length;
     }
 
 }

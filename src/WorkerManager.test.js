@@ -1,4 +1,5 @@
 import WorkerManager from './WorkerManager';
+import {getStepValue} from './functions'
 
 describe('Worker Manager', () => {
 
@@ -50,10 +51,12 @@ describe('Worker Manager', () => {
 
         expect(done).toBe(false);
 
-        manager.work();
-
+        for(let i = 0; i < getStepValue('A'); i++){
+            manager.work();
+        }
+    
         expect(done).toBe(true);   
     });
 
-    
+
 })

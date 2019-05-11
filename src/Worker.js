@@ -5,12 +5,13 @@ export default class Worker {
     ready = true;
     currentStep;
 
-    constructor(onComplete = () => {}) {
+    constructor(onComplete = () => {}, baseTime = 60) {
+        this.baseTime = baseTime;
         this.onComplete = onComplete;
     }
 
     assignStep = step => {
-        this.timeRemaining = getStepValue(step);
+        this.timeRemaining = getStepValue(step, this.baseTime);
         this.ready = false;
         this.currentStep = step;
     };
@@ -21,8 +22,10 @@ export default class Worker {
             if (this.timeRemaining === 0) {
                 this.ready = true;
                 this.onComplete(this.currentStep);
-                this.currentStep = null;
             }
+        }
+        else {
+            this.currentStep = null;
         }
     };
 }

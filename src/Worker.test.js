@@ -18,7 +18,7 @@ describe('Worker', () => {
 
     it('Updates time remaining based on unit it is given', () => {
         worker.assignStep('A');
-        expect(worker.timeRemaining).toBe(1);
+        expect(worker.timeRemaining).toBe(61);
     });
 
     it('Is marked as not ready when it is busy', () => {
@@ -28,10 +28,13 @@ describe('Worker', () => {
 
     it('Decrements time remaining when a unit of work is complete', () => {
         worker.work();
-        expect(worker.timeRemaining).toBe(0);
+        expect(worker.timeRemaining).toBe(60);
     });
 
     it('Is marked as ready when its time remaining is 0', () => {
+        while(worker.timeRemaining > 0){
+            worker.work();
+        }
         expect(worker.ready).toBe(true);
     });
 });

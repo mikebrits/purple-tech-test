@@ -5,13 +5,13 @@ import {
     findEmptyNodes,
     findStepOrder,
     getStepValue,
-    manageWorkers
+    manageWorkers,
 } from './functions';
 
 describe('Dependecy Graph Generator', () => {
     it('Handles empty input', () => {
         const output = findStepOrder('');
-        expect(output).toBe('');
+        expect(output).toBe(0);
     });
 
     it('Parses input sentences to variable pairs', () => {
@@ -69,9 +69,25 @@ describe('Dependency Graph Traverser', () => {
             'Step A must be finished before step B can begin.';
 
         let [forward, backward] = parseInput(input);
-        const output = traversePath(forward, backward);
+        const output = traversePath(forward, backward, 0, 0);
 
-        expect(output).toBe('ABCDE');
+        expect(output).toBe(1 + 2 + 3 + 4 + 5);
+    });
+
+    it('Outputs steps in the right order - example', () => {
+        const input =
+            'Step C must be finished before step A can begin.\n' +
+            'Step C must be finished before step F can begin.\n' +
+            'Step A must be finished before step B can begin.\n' +
+            'Step A must be finished before step D can begin.\n' +
+            'Step B must be finished before step E can begin.\n' +
+            'Step D must be finished before step E can begin.\n' +
+            'Step F must be finished before step E can begin.';
+
+        let [forward, backward] = parseInput(input);
+        const output = traversePath(forward, backward, 1, 0);
+
+        expect(output).toBe(15);
     });
 
     // This was not part of the requirement, but given enough time, eventually there would be
@@ -92,6 +108,6 @@ describe('Dependency Graph Traverser', () => {
 });
 
 test('get step value', () => {
-    expect(getStepValue('A')).toBe(1);
-    expect(getStepValue('Z')).toBe(26);
+    expect(getStepValue('A')).toBe(61);
+    expect(getStepValue('Z')).toBe(86);
 });
