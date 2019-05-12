@@ -1,28 +1,13 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import styled from 'styled-components';
 // import {findEmptyNodes} from '../../../../src/functions';
 
-const graphData = [
-    [
-        {
-            label: "C",
-        },
-    ],
-    [
-        {
-            label: "A",
-        },
-        {
-            label: "B",
-        },
-    ]
-]
 
 export default ({forwardMap, backwardMap}) => {
 
     // const emptyNodes = findEmptyNodes(forwardMap);
     const forwardCopy = {...forwardMap};
-
+    const graphData = useMemo(generateGraphData, [forwardMap, backwardMap]);
     return(
         <Container>
         {
@@ -39,6 +24,22 @@ export default ({forwardMap, backwardMap}) => {
         </Container>
     );
 }
+
+const generateGraphData = (forward, backward) => [
+    [
+        {
+            label: "C",
+        },
+    ],
+    [
+        {
+            label: "A",
+        },
+        {
+            label: "B",
+        },
+    ]
+];
 
 const Container = styled.div`
     display: flex;

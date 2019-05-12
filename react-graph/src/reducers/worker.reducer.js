@@ -13,12 +13,13 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case INIT_WORKER:
             return {
-                ...state,
+                ...defaultState,
                 id: uuid.v4(),
                 onComplete: action.payload.onComplete
             }
-        case WORK:
 
+
+        case WORK:
         let timeRemaining = 0
 
         if(state.timeRemaining > 0){
@@ -43,8 +44,9 @@ export default (state = defaultState, action) => {
         case ASSIGN_STEP:
             return {
                 ...state,
-                ready: true,
-                currentStep: action.payload
+                ready: false,
+                currentStep: action.payload,
+                timeRemaining: getStepValue(action.payload)
             }
         
         default:

@@ -14,7 +14,7 @@ export default (state = defaultState, action) => {
         case REMOVE_NODE:
             return {
                 ...state,
-                forward: _.omit(state, action.payload),
+                forward: _.omit(state.forward, action.payload),
             };
         case NODE_COMPLETE:
             return {
