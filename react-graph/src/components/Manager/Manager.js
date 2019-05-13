@@ -68,12 +68,20 @@ export default ({ workerCount }) => {
 
     return (
         <div>
-            {
-                timerActive && <Timer onTick={doWork} delay={500}/> 
-            }
-            
-            <button onClick={() => {setTimer(!timerActive)}}>{timerActive ? 'Disable' : 'Enable'} Timer</button> {count} {nodeOrder}
+            {timerActive && <Timer onTick={doWork} delay={500} />}
+
             <WorkerBench>
+                <Header>
+                    <Button
+                        onClick={() => {
+                            setTimer(!timerActive);
+                        }}
+                    >
+                        {timerActive ? 'Pause' : 'Start'} Working
+                    </Button>
+                    <div style={{textAlign: "center"}}><small>Time</small><br/><b>{count || '-'}</b></div>
+                    <div style={{textAlign: "right"}}><small>Steps</small><br/><b>{nodeOrder || '-'}</b></div>
+                </Header>
                 {workers.map(worker => (
                     <Worker key={worker.id} id={worker.id} />
                 ))}
@@ -107,5 +115,26 @@ const WorkerBench = styled.div`
     display: flex;
     flex-flow: column;
     justify-content: center;
-    align-items:center;
+    align-items: center;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
 `;
+
+const Header = styled.div`
+    padding: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const Button = styled.div`
+    padding: 8px 16px;
+    background-color: #41b141;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 13px;
+`;
+

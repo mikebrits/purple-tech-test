@@ -7,6 +7,7 @@ import Manager from './components/Manager/Manager';
 import input from './input';
 import { initGraph } from './actions';
 import styled from 'styled-components';
+import './App.css';
 
 const store = createStore(
     rootReducer,

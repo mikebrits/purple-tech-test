@@ -22,12 +22,12 @@ export default ({ id }) => {
                     <Name>{name}</Name>
                     {!ready ? (
                         <TimerWrapper>
-                            <div style={{width: 150}}>Active Step: {currentStep}</div>
+                            <div style={{width: 150}}>Active Step: <b>{currentStep}</b></div>
 
                             <TimerContainer>
                                 <TimerValue value={(timeRemaining / currentStepValue) * 100} />
                                 <TimeRemaining>
-                                    Time Left: {!timeRemaining ? 'N/A' : timeRemaining}
+                                    Time Left: <b>{!timeRemaining ? 'N/A' : timeRemaining}</b>
                                 </TimeRemaining>
                             </TimerContainer>
                         </TimerWrapper>
@@ -54,6 +54,7 @@ const TimerWrapper = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
+    color: gray;
 `;
 
 const ProfilePic = styled.div`
@@ -72,12 +73,14 @@ const TimerContainer = styled.div`
     border-radius: 2px;
     background-color: #dddddd;
     width: 500px;
+    
 `;
 
 const TimeRemaining = styled.div`
     justify-self: flex-end;
     text-align: right;
     font-size: 11px;
+    margin-top: 4px;
 `;
 
 const TimerValue = styled.div`
