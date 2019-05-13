@@ -5,47 +5,88 @@ import styled from 'styled-components';
 
 // Worker
 export default ({ id }) => {
-    const {name, ready, timeRemaining, currentStep, currentStepValue, profilePicture} = useSelector(getWorkerById(id));
+    const {
+        name,
+        ready,
+        timeRemaining,
+        currentStep,
+        currentStepValue,
+        profilePicture,
+    } = useSelector(getWorkerById(id));
 
     return (
-        <Container>
-            <ProfilePic src={profilePicture} alt={name} />
-            <div>{name}</div>
-            {!ready ? (
-                <React.Fragment>
-                    <div>Active Step: {currentStep}</div>
-                    <div>Time Left: {!timeRemaining ? 'N/A' : timeRemaining}</div>
-                    <TimerContainer>
-                        <TimerValue value={timeRemaining / currentStepValue * 100 } />
-                    </TimerContainer>
-                </React.Fragment>
-            ) : (
-                <div>Ready</div>
-            )}
+        <Container ready={ready}>
+            
+                <ProfilePic src={profilePicture} alt={name} />
+                <div style={{width: 500}}>
+                    <Name>{name}</Name>
+                    {!ready ? (
+                        <TimerWrapper>
+                            <div style={{width: 150}}>Active Step: {currentStep}</div>
+
+                            <TimerContainer>
+                                <TimerValue value={(timeRemaining / currentStepValue) * 100} />
+                                <TimeRemaining>
+                                    Time Left: {!timeRemaining ? 'N/A' : timeRemaining}
+                                </TimeRemaining>
+                            </TimerContainer>
+                        </TimerWrapper>
+                    ) : null}
+                </div>
+            
         </Container>
     );
 };
 
 const Container = styled.div`
-    padding: 20px;
-    max-width: 200px;
-
+    padding: 8px;
+    width: 100%;
+    opacity: ${({ ready }) => (ready ? '0.3' : '1')};
+    display: flex;
+    background: white;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin: 8px 0;
+    max-width: 615px;
 `;
 
-const ProfilePic = styled.img`
-    max-width: 100px;
-    border-radius: 100px;
+const TimerWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+`;
+
+const ProfilePic = styled.div`
+    background-image: url('${({ src }) => src}');
+    background-position: center center;
+    background-size: cover;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 1px solid #dddddd;
+    margin-right: 16px;
 `;
 
 const TimerContainer = styled.div`
     height: 5px;
     border-radius: 2px;
     background-color: #dddddd;
+    width: 500px;
+`;
+
+const TimeRemaining = styled.div`
+    justify-self: flex-end;
+    text-align: right;
+    font-size: 11px;
 `;
 
 const TimerValue = styled.div`
     height: 5px;
     background-color: green;
     border-radius: 2px;
-    width: ${({value}) =>  value + '%'};
+    width: ${({ value }) => value + '%'};
+`;
+
+const Name = styled.h3`
+    margin: 4px 0;
 `;

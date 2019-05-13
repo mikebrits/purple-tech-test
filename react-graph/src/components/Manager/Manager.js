@@ -68,9 +68,8 @@ export default ({ workerCount }) => {
 
     return (
         <div>
-            Manager
             {
-                timerActive && <Timer onTick={doWork} delay={300}/> 
+                timerActive && <Timer onTick={doWork} delay={500}/> 
             }
             
             <button onClick={() => {setTimer(!timerActive)}}>{timerActive ? 'Disable' : 'Enable'} Timer</button> {count} {nodeOrder}
@@ -104,5 +103,9 @@ function useInterval(callback, delay) {
 }
 
 const WorkerBench = styled.div`
+    padding: 20px;
     display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items:center;
 `;

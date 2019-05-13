@@ -6,6 +6,7 @@ import rootReducer from './reducers';
 import Manager from './components/Manager/Manager';
 import input from './input';
 import { initGraph } from './actions';
+import styled from 'styled-components';
 
 const store = createStore(
     rootReducer,
@@ -15,12 +16,17 @@ const store = createStore(
 function App() {
     return (
         <Provider store={store}>
-            <React.Fragment>
+            <Container>
                 <Graph input={input} />
                 <Manager workerCount={6} />
-            </React.Fragment>
+            </Container>
         </Provider>
     );
 }
+
+const Container = styled.div`
+  background-color: #fafafa;
+  height: 100vh;
+`;
 
 export default App;

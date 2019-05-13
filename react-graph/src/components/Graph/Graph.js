@@ -1,13 +1,12 @@
-import React, {useMemo, useEffect, useState} from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import {initGraph} from '../../actions';
+import { initGraph } from '../../actions';
 import { getGraph } from '../../selectors';
 // import {findEmptyNodes} from '../../../../src/functions';
 
-
-export default ({input}) => {
-    const {forward, backward} = useSelector(getGraph);
+export default ({ input }) => {
+    const { forward, backward } = useSelector(getGraph);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -15,11 +14,11 @@ export default ({input}) => {
     }, []);
 
     // const emptyNodes = findEmptyNodes(forwardMap);
-    
+
     const graphData = useMemo(generateGraphData, [forward, backward]);
-    return(
+    return (
         <Container>
-        {
+            {/*
             graphData.map((group, index) => {
             return <NodeGroup key={index}>
                 {
@@ -29,25 +28,25 @@ export default ({input}) => {
                 }
             </NodeGroup>
         })
-        }
+    */}
         </Container>
     );
-}
+};
 
 const generateGraphData = (forward, backward) => [
     [
         {
-            label: "C",
+            label: 'C',
         },
     ],
     [
         {
-            label: "A",
+            label: 'A',
         },
         {
-            label: "B",
+            label: 'B',
         },
-    ]
+    ],
 ];
 
 const Container = styled.div`

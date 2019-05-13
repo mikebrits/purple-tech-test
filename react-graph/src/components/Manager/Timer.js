@@ -18,5 +18,5 @@ export default ({onTick, delay}) => {
         }
     }, [delay]);
 
-    return <div>----</div>
+    return null;
 }
