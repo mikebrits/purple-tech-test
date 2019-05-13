@@ -1,31 +1,79 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { initManager, work, assignStep } from '../../actions';
+import {
+    initManager,
+    work,
+    assignStep,
+    removeNode,
+    completeNode,
+    resetWorker,
+} from '../../actions';
 import Worker from '../Worker/Worker';
-import { getWorkers } from '../../selectors';
+import {
+    getWorkers,
+    getEmptyNodes,
+    getFreeWorkers,
+    managerInitialised,
+    getWorkersJustFinished,
+} from '../../selectors';
 import styled from 'styled-components';
+import Timer from './Timer';
 
-export default ({ workerCount, onStepComplete }) => {
+// Manager
+export default ({ workerCount }) => {
     const dispatch = useDispatch();
     const workers = useSelector(getWorkers);
-    useEffect(() => {
-        dispatch(initManager(workerCount, onStepComplete));
-    }, [workerCount, dispatch, onStepComplete]);
+    let justFinished = useSelector(getWorkersJustFinished);
+    const emptyNodes = useSelector(getEmptyNodes);
+    const freeWorkers = useSelector(getFreeWorkers);
+    const [nodeOrder, setNodeOrder] = useState('');
+    const [count, setCount] = useState(0);
+    const [timerActive, setTimer] = useState(false);
 
     const doWork = () => {
-        console.log('Pew');
-        dispatch(work());
+        if (emptyNodes.length || workers.length !== freeWorkers.length) {
+            dispatch(work());
+            setCount(count + 1);
+        }
     };
 
-    const assignStepToWorker = () => {
-        dispatch(assignStep('Z'));
-    };
+    console.log(emptyNodes);
+
+    // useInterval(() => {
+    //     doWork();
+    // }, 1000);
+
+    // Initialise the manager
+    useEffect(() => {
+        dispatch(initManager(workerCount));
+    }, [dispatch, workerCount]);
+
+    // Every time there is a free worker, assign it work
+    useEffect(() => {
+        // console.log(freeWorkers);
+        if (emptyNodes[0] && freeWorkers.length) {
+            dispatch(assignStep(emptyNodes[0]));
+            dispatch(removeNode(emptyNodes[0]));
+        }
+    }, [freeWorkers]);
+
+    //Track workers who are about to finish
+    useEffect(() => {
+        justFinished.forEach(worker => {
+            dispatch(completeNode(worker.currentStep));
+            setNodeOrder(nodeOrder + worker.currentStep);
+            dispatch(resetWorker(worker.id));
+        });
+    }, [justFinished, dispatch]);
 
     return (
         <div>
             Manager
-            <button onClick={doWork}>Work</button>
-            <button onClick={assignStepToWorker}>Assign</button>
+            {
+                timerActive && <Timer onTick={doWork} delay={300}/> 
+            }
+            
+            <button onClick={() => {setTimer(!timerActive)}}>{timerActive ? 'Disable' : 'Enable'} Timer</button> {count} {nodeOrder}
             <WorkerBench>
                 {workers.map(worker => (
                     <Worker key={worker.id} id={worker.id} />
@@ -34,6 +82,26 @@ export default ({ workerCount, onStepComplete }) => {
         </div>
     );
 };
+
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    // Remember the latest callback.
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    // Set up the interval.
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
 
 const WorkerBench = styled.div`
     display: flex;

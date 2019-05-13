@@ -1,4 +1,4 @@
-import { INIT_MANAGER, ASSIGN_STEP, WORK, INIT_GRAPH, REMOVE_NODE, NODE_COMPLETE } from './actionsTypes';
+import { INIT_MANAGER, ASSIGN_STEP, WORK, INIT_GRAPH, REMOVE_NODE, NODE_COMPLETE, RESET_WORKER } from './actionsTypes';
 
 // Manager and Workers
 export const initManager = (workerCount, onWorkerComplete) => ({
@@ -15,6 +15,11 @@ export const assignStep = (step) => ({
 
 export const work = () => ({
     type: WORK
+});
+
+export const resetWorker = (id) => ({
+    type: RESET_WORKER,
+    payload: id
 });
 
 

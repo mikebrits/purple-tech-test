@@ -11,3 +11,4 @@ export const INIT_WORKER = 'INIT_WORKER';
 export const WORK = 'WORK';
 export const ASSIGN_STEP = 'ASSIGN_STEP';
 export const SET_READY = 'SET_READY';
+export const RESET_WORKER = 'RESET_WORKER';

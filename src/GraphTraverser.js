@@ -2,6 +2,7 @@ import {findEmptyNodes} from './functions';
 import WorkerManager from './WorkerManager';
 
 export const traverseGraph = (forward, backward, workerCount = 0, baseTime = 60) => {
+    console.log(forward);
     let emptyNodes = findEmptyNodes(forward);
     const totalNodes = Object.keys(forward).length;
     let totalTime = 0;
@@ -51,6 +52,7 @@ export const traverseGraph = (forward, backward, workerCount = 0, baseTime = 60)
     if (order && order.length < totalNodes) {
         throw 'Circular Reference Detected';
     }
+    console.log("-" + order);
     return totalTime; 
 };
 

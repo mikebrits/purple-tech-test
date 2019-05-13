@@ -1,13 +1,22 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useEffect, useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import {initGraph} from '../../actions';
+import { getGraph } from '../../selectors';
 // import {findEmptyNodes} from '../../../../src/functions';
 
 
-export default ({forwardMap, backwardMap}) => {
+export default ({input}) => {
+    const {forward, backward} = useSelector(getGraph);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(initGraph(input));
+    }, []);
 
     // const emptyNodes = findEmptyNodes(forwardMap);
-    const forwardCopy = {...forwardMap};
-    const graphData = useMemo(generateGraphData, [forwardMap, backwardMap]);
+    
+    const graphData = useMemo(generateGraphData, [forward, backward]);
     return(
         <Container>
         {

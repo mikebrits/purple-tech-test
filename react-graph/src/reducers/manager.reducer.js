@@ -1,54 +1,56 @@
-import { INIT_MANAGER, INIT_WORKER, WORK, ASSIGN_STEP } from "../actionsTypes";
+import { INIT_MANAGER, INIT_WORKER, WORK, ASSIGN_STEP, RESET_WORKER } from '../actionsTypes';
 import workerReducer from './worker.reducer';
-import _ from 'lodash';
 
 const defaultState = {
-    workers : [],
+    workers: [],
     isBusy: true,
-    hasFreeWorker : true
+    initialised: false,
 };
 
 export default (state = defaultState, action) => {
     switch (action.type) {
         case INIT_MANAGER:
-            const {workerCount, onComplete} = action.payload;
+            const { workerCount } = action.payload;
             let workers = [];
-            for(let i = 0; i < workerCount; i++){
+            for (let i = 0; i < workerCount; i++) {
                 workers[i] = workerReducer(null, {
                     type: INIT_WORKER,
                     payload: {
-                        onComplete
-                    }
+                        profilePicture: `https://randomuser.me/api/portraits/lego/${i}.jpg`,
+                        name: `Worker ${i + 1}` 
+                    },
                 });
             }
 
             return {
                 ...state,
-                workers
-            }
+                initialised: true,
+                workers,
+            };
         case ASSIGN_STEP:
-            if(!state.hasFreeWorker)
-                return state;
             let isAssigned = false;
             return {
                 ...state,
-                workers : state.workers.map((worker) => {
-                    if(!isAssigned && worker.ready){
+                workers: state.workers.map(worker => {
+                    if (!isAssigned && worker.timeRemaining == null) {
                         isAssigned = true;
                         return workerReducer(worker, action);
                     }
                     return worker;
-                })
+                }),
             };
-        case WORK:
-        
+        case RESET_WORKER:
             return {
                 ...state,
-                workers : state.workers.map(worker => workerReducer(worker, action)),
-                hasFreeWorker: !!_.find(state.workers, 'ready')
+                workers: state.workers.map(worker =>
+                    worker.id === action.payload ? workerReducer(worker, action) : worker,
+                ),
             };
-            
+        case WORK:
         default:
-            return state;
+            return {
+                ...state,
+                workers: state.workers.map(worker => workerReducer(worker, action)),
+            };
     }
 };

@@ -17,9 +17,19 @@ export default (state = defaultState, action) => {
                 forward: _.omit(state.forward, action.payload),
             };
         case NODE_COMPLETE:
+            const step = action.payload;
+            const dependencies = state.backward[step];
+            let forwardCopy = {...state.forward};
+            dependencies.forEach(dep => {
+                forwardCopy[dep] = forwardCopy[dep].filter(item => item !== step);
+            });
+
             return {
                 ...state,
-                backward: _.mapValues(object => object.filter(item => item !== action.payload)),
+                forward: forwardCopy
+                // forward: _.mapValues(state.forward, object =>
+                //     object.filter(item => item !== action.payload),
+                // ),
             };
         default:
             return state;

@@ -2,7 +2,7 @@ import {traverseGraph} from './GraphTraverser';
 
 export const findGraphExecutionTime = contents => {
     let [forward, backward] = parseInput(contents);
-    const output = traverseGraph(forward, backward, 5, 60);
+    const output = traverseGraph(forward, backward, 5, 0);
     return output;
 };
 
