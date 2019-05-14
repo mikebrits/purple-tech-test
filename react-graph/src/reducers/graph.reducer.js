@@ -2,6 +2,8 @@ import { REMOVE_NODE, NODE_COMPLETE, INIT_GRAPH } from '../actionsTypes';
 import _ from 'lodash';
 
 const defaultState = {
+    originalForward: {},
+    originalBackward: {},
     forward: {},
     backward: {},
 };
@@ -10,7 +12,12 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case INIT_GRAPH:
             const [forward, backward] = parseInput(action.payload);
-            return { forward, backward };
+            return { 
+                forward, 
+                backward, 
+                originalForward: forward, 
+                originalBackward: backward 
+            };
         case REMOVE_NODE:
             return {
                 ...state,
@@ -19,14 +26,14 @@ export default (state = defaultState, action) => {
         case NODE_COMPLETE:
             const step = action.payload;
             const dependencies = state.backward[step];
-            let forwardCopy = {...state.forward};
+            let forwardCopy = { ...state.forward };
             dependencies.forEach(dep => {
                 forwardCopy[dep] = forwardCopy[dep].filter(item => item !== step);
             });
 
             return {
                 ...state,
-                forward: forwardCopy
+                forward: _.omit(state.forward, action.payload),
                 // forward: _.mapValues(state.forward, object =>
                 //     object.filter(item => item !== action.payload),
                 // ),

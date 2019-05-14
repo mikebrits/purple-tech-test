@@ -37,12 +37,6 @@ export default ({ workerCount }) => {
         }
     };
 
-    console.log(emptyNodes);
-
-    // useInterval(() => {
-    //     doWork();
-    // }, 1000);
-
     // Initialise the manager
     useEffect(() => {
         dispatch(initManager(workerCount));
