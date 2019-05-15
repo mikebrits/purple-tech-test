@@ -13,5 +13,10 @@ export const managerInitialised = state => state.manager.initialised;
 export const getWorkers = state => state.manager.workers;
 export const getFreeWorkers = state => state.manager.workers.filter(worker => worker.ready);
 export const getWorkerById = id => state => _.find(state.manager.workers, { id });
-export const getWorkersJustFinished = state => _.filter(state.manager.workers, { timeRemaining: 0 });
+export const getWorkersJustFinished = state =>
+    _.filter(state.manager.workers, { timeRemaining: 0 });
 
+export const getActiveNodes = state =>
+    state.manager.workers.filter(w => !w.ready).map(w => w.currentStep);
+
+export const getWorkerByStep = step => state => state.manager.workers.filter(w => w.currentStep === step)[0];
