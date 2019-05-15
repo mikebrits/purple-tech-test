@@ -1,4 +1,4 @@
-import { REMOVE_NODE, NODE_COMPLETE, INIT_GRAPH } from '../actionsTypes';
+import {REMOVE_NODE, NODE_COMPLETE, INIT_GRAPH, ADD_NODE_REF} from '../actionsTypes';
 import _ from 'lodash';
 
 const defaultState = {
@@ -6,6 +6,7 @@ const defaultState = {
     originalBackward: {},
     forward: {},
     backward: {},
+    nodeRefs: {}
 };
 
 export default (state = defaultState, action) => {
@@ -23,6 +24,14 @@ export default (state = defaultState, action) => {
                 ...state,
                 forward: _.omit(state.forward, action.payload),
             };
+        case ADD_NODE_REF:
+            return {
+                ...state,
+                nodeRefs: {
+                    ...state.nodeRefs,
+                    [action.payload.step] : action.payload.node
+                }
+            }
         case NODE_COMPLETE:
             const step = action.payload;
             const dependencies = state.backward[step];

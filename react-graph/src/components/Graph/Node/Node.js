@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-// Node
+import {useDispatch} from "react-redux";
+import {addNodeRef} from "../../../actions";
 
-export default ({step}) => {
-    return <Container>{step}</Container>
-}
+// Node Component
+export default ({ step }) => {
+    const dispatch = useDispatch();
+    const nodeRef = useRef(null);
+    useEffect(() => {
+        dispatch(addNodeRef(nodeRef, step));
+    }, []);
+    return (
+        <Container
+            ref={nodeRef}
+        >
+            {step}
+        </Container>
+    );
+};
 
 const Container = styled.div`
-
     border: 1px solid gray;
     color: gray;
     font-size: 12px;
@@ -17,6 +29,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 8px 0;
+    margin: 16px 0;
     background: white;
+    //z-index: 100;
 `;

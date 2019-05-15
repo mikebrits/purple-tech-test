@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
 export const getGraph = state => state.graph;
+export const getGraphNodeRefs = state => state.graph.nodeRefs;
+
 export const getEmptyNodes = ({ graph }) =>
     Object.keys(graph.forward)
         .filter(item => graph.forward[item].length === 0)

@@ -1,4 +1,13 @@
-import { INIT_MANAGER, ASSIGN_STEP, WORK, INIT_GRAPH, REMOVE_NODE, NODE_COMPLETE, RESET_WORKER } from './actionsTypes';
+import {
+    INIT_MANAGER,
+    ASSIGN_STEP,
+    WORK,
+    INIT_GRAPH,
+    REMOVE_NODE,
+    NODE_COMPLETE,
+    RESET_WORKER,
+    ADD_NODE_REF
+} from './actionsTypes';
 
 // Manager and Workers
 export const initManager = (workerCount, onWorkerComplete) => ({
@@ -38,3 +47,9 @@ export const completeNode = (node) => ({
     type: NODE_COMPLETE,
     payload: node
 });
+
+export const addNodeRef = (node, step) => ({
+    type: ADD_NODE_REF,
+    payload: {step, node}
+});
+

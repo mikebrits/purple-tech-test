@@ -2,19 +2,19 @@ import React, { useMemo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { initGraph } from '../../actions';
-import { getGraph } from '../../selectors';
+import {getGraph, getGraphNodeRefs} from '../../selectors';
 import Node from './Node/Node';
+import NodeLinks from "./NodeLinks";
 // import {findEmptyNodes} from '../../../../src/functions';
 
 export default ({ input }) => {
     const { originalForward, originalBackward } = useSelector(getGraph);
+    const refs = useSelector(getGraphNodeRefs);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(initGraph(input));
     }, []);
-
-    // const emptyNodes = findEmptyNodes(forwardMap);
 
     const graphData = useMemo(() => generateGraphData(originalForward, originalBackward), [
         originalForward,
@@ -23,15 +23,17 @@ export default ({ input }) => {
 
     return graphData ? (
         <Container>
+            <NodeLinks nodes={refs} backwardMap={originalBackward} />
             {graphData.map((group, index) => {
                 return (
                     <NodeGroup key={index}>
                         {group.map((node, index) => {
-                            return <Node key={index} step={node}/>;
+                            return <Node key={index} step={node} />;
                         })}
                     </NodeGroup>
                 );
             })}
+
         </Container>
     ) : (
         'Loading Graph...'
@@ -67,10 +69,13 @@ const getEmptyNodes = forward => {
 const Container = styled.div`
     display: flex;
     align-items: center;
+    z-index: 10;
+    position: relative;
 `;
 
 const NodeGroup = styled.div`
     padding: 20px;
     background-color: #fafafa;
     height: 100%;
+    //z-index: 100;
 `;

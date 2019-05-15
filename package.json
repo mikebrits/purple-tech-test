@@ -17,12 +17,12 @@
     "@babel/preset-env": "^7.4.4",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.5",
-    "eslint": "^5.16.0",
     "jest": "^24.8.0",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "@babel/polyfill": "^7.4.4",
+    "eslint-config-react-app": "^4.0.1"
   }
 }

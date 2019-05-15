@@ -2,6 +2,7 @@
 export const INIT_GRAPH = 'INIT_GRAPH';
 export const REMOVE_NODE = 'REMOVE_NODE';
 export const NODE_COMPLETE = 'NODE_COMPLETE';
+export const ADD_NODE_REF = 'ADD_NODE_REF';
 
 // Manager Actions
 export const INIT_MANAGER = 'INIT_MANAGER';
