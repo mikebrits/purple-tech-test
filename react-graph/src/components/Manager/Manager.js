@@ -44,7 +44,7 @@ export default ({ workerCount }) => {
 
     // Every time there is a free worker, assign it work
     useEffect(() => {
-        // console.log(freeWorkers);
+        console.log(emptyNodes);
         if (emptyNodes[0] && freeWorkers.length) {
             dispatch(assignStep(emptyNodes[0]));
             dispatch(removeNode(emptyNodes[0]));

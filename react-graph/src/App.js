@@ -5,7 +5,6 @@ import { createStore } from 'redux';
 import rootReducer from './reducers';
 import Manager from './components/Manager/Manager';
 import input from './input';
-import { initGraph } from './actions';
 import styled from 'styled-components';
 import './App.css';
 
@@ -28,6 +27,7 @@ function App() {
 const Container = styled.div`
   background-color: #fafafa;
   height: 100vh;
+  overflow: scroll;
 `;
 
 export default App;

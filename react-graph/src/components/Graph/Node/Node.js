@@ -9,7 +9,6 @@ export default ({ step }) => {
     const dispatch = useDispatch();
     const nodeRef = useRef(null);
     const activeWorker = useSelector(getWorkerByStep(step));
-    console.log(activeWorker);
     useEffect(() => {
         dispatch(addNodeRef(nodeRef, step));
     }, []);

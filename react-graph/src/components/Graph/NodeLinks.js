@@ -16,7 +16,9 @@ export default function({ nodes, lastNodes, activeNodes }) {
                                     <Edge
                                         key={index}
                                         startNode={startNode}
+                                        startNodeValue={nodeKey}
                                         endNode={endNode}
+                                        endNodeValue={key}
                                         active={activeNodes.indexOf(nodeKey) > -1}
                                     />
                                 );

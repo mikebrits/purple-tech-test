@@ -85,9 +85,9 @@ const TimeRemaining = styled.div`
 
 const TimerValue = styled.div`
     height: 5px;
-    background-color: green;
+    background-color: #41b141;
     border-radius: 2px;
-    width: ${({ value }) => value + '%'};
+    width: ${({value}) => value + '%'};
 `;
 
 const Name = styled.h3`
