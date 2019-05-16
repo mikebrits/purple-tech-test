@@ -6,7 +6,8 @@ const defaultState = {
     originalBackward: {},
     forward: {},
     backward: {},
-    nodeRefs: {}
+    nodeRefs: {},
+    finishedNodes: [],
 };
 
 export default (state = defaultState, action) => {
@@ -17,7 +18,8 @@ export default (state = defaultState, action) => {
                 forward, 
                 backward, 
                 originalForward: forward, 
-                originalBackward: backward 
+                originalBackward: backward, 
+                finishedNodes: []
             };
         case REMOVE_NODE:
             return {
@@ -39,13 +41,11 @@ export default (state = defaultState, action) => {
             dependencies.forEach(dep => {
                 forwardCopy[dep] = forwardCopy[dep].filter(item => item !== step);
             });
-
+            console.log(state);
             return {
                 ...state,
-                forward: _.omit(state.forward, action.payload),
-                // forward: _.mapValues(state.forward, object =>
-                //     object.filter(item => item !== action.payload),
-                // ),
+                forward: _.omit(forwardCopy, step),
+                finishedNodes: [...state.finishedNodes, step],
             };
         default:
             return state;

@@ -2,18 +2,20 @@ import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNodeRef } from '../../../actions';
-import { getWorkerByStep } from '../../../selectors';
+import { getWorkerByStep, getCompletedNodes } from '../../../selectors';
 
 // Node Component
 export default ({ step }) => {
     const dispatch = useDispatch();
     const nodeRef = useRef(null);
     const activeWorker = useSelector(getWorkerByStep(step));
+    const completedNodes = useSelector(getCompletedNodes);
+
     useEffect(() => {
         dispatch(addNodeRef(nodeRef, step));
     }, []);
     return (
-        <Container ref={nodeRef}>
+        <Container ref={nodeRef} active={completedNodes.indexOf(step) === -1}>
             {step}
             {activeWorker && <ProfilePic src={activeWorker.profilePicture} />}
         </Container>
@@ -33,6 +35,7 @@ const Container = styled.div`
     margin: 16px 0;
     background: white;
     position: relative;
+    opacity: ${({active}) => active ? 1 : 0.4};
     //z-index: 100;
 `;
 

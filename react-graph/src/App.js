@@ -8,9 +8,17 @@ import input from './input';
 import styled from 'styled-components';
 import './App.css';
 
+const actionSanitizer = (action) => (
+    action.type === 'ADD_NODE_REF' && action.payload ?
+    { ...action, payload: {...action.payload, node: `--NODE for ${action.payload.step}--`} } : action
+  );
+
 const store = createStore(
     rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__({
+        actionSanitizer,
+        stateSanitizer: state => ({...state, graph: {...state.graph, nodeRefs: 'Node refs'}})
+    }),
 );
 
 function App() {

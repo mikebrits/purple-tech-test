@@ -15,6 +15,7 @@ import {
     getFreeWorkers,
     managerInitialised,
     getWorkersJustFinished,
+    getCompletedNodes,
 } from '../../selectors';
 import styled from 'styled-components';
 import Timer from './Timer';
@@ -29,6 +30,7 @@ export default ({ workerCount }) => {
     const [nodeOrder, setNodeOrder] = useState('');
     const [count, setCount] = useState(0);
     const [timerActive, setTimer] = useState(false);
+    const completedNodes = useSelector(getCompletedNodes);
 
     const doWork = () => {
         if (emptyNodes.length || workers.length !== freeWorkers.length) {
@@ -44,7 +46,6 @@ export default ({ workerCount }) => {
 
     // Every time there is a free worker, assign it work
     useEffect(() => {
-        console.log(emptyNodes);
         if (emptyNodes[0] && freeWorkers.length) {
             dispatch(assignStep(emptyNodes[0]));
             dispatch(removeNode(emptyNodes[0]));
@@ -74,7 +75,7 @@ export default ({ workerCount }) => {
                         {timerActive ? 'Pause' : 'Start'} Working
                     </Button>
                     <div style={{textAlign: "center"}}><small>Time</small><br/><b>{count || '-'}</b></div>
-                    <div style={{textAlign: "right"}}><small>Steps</small><br/><b>{nodeOrder || '-'}</b></div>
+                    <div style={{textAlign: "right"}}><small>Steps</small><br/><b>{completedNodes.length ? completedNodes : '-'}</b></div>
                 </Header>
                 {workers.map(worker => (
                     <Worker key={worker.id} id={worker.id} />
