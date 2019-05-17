@@ -23,8 +23,7 @@ export default ({ step }) => {
 };
 
 const Container = styled.div`
-    border: 1px solid gray;
-    color: gray;
+    border: 1px solid black;
     font-size: 12px;
     border-radius: 50px;
     height: 25px;
@@ -33,9 +32,12 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     margin: 16px 0;
-    background: white;
+    //background: white;
     position: relative;
-    opacity: ${({active}) => active ? 1 : 0.4};
+    ${({active}) => (!active && `
+        background: black;
+        color: white;
+    `)}
     //z-index: 100;
 `;
 

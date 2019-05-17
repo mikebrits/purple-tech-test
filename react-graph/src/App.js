@@ -7,6 +7,7 @@ import Manager from './components/Manager/Manager';
 import input from './input';
 import styled from 'styled-components';
 import './App.css';
+import Header from "./components/Header";
 
 const actionSanitizer = (action) => (
     action.type === 'ADD_NODE_REF' && action.payload ?
@@ -25,6 +26,7 @@ function App() {
     return (
         <Provider store={store}>
             <Container>
+                <Header/>
                 <Graph input={input} />
                 <Manager workerCount={6} />
             </Container>
@@ -33,7 +35,7 @@ function App() {
 }
 
 const Container = styled.div`
-  background-color: #fafafa;
+  background-color: #facd00;
   height: 100vh;
   overflow: scroll;
 `;
