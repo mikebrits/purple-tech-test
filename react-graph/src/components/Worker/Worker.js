@@ -73,7 +73,7 @@ const TimerContainer = styled.div`
     background-color: white;
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 90%;
 `;
 
 const TimeRemaining = styled.div`
