@@ -15,28 +15,27 @@ export default ({ step }) => {
         dispatch(addNodeRef(nodeRef, step));
     }, []);
     return (
-        <Container ref={nodeRef} active={completedNodes.indexOf(step) === -1}>
+        <NodeContainer className="node" ref={nodeRef} active={completedNodes.indexOf(step) === -1}>
             {step}
             {activeWorker && <ProfilePic src={activeWorker.profilePicture} />}
-        </Container>
+        </NodeContainer>
     );
 };
 
-const Container = styled.div`
+export const NodeContainer = styled.div`
     border: 1px solid gray;
     color: gray;
-    font-size: 12px;
+    font-size: ${({small}) => small ? '9px' : '12px'};
     border-radius: 50px;
-    height: 25px;
-    width: 25px;
+    height: ${({small}) => small ? '15px' : '25px'};
+    width: ${({small}) => small ? '15px' : '25px'};
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 16px 0;
+    margin: ${({small}) => small ? '0 4px' : '16px 0'};
     background: white;
     position: relative;
     opacity: ${({active}) => active ? 1 : 0.4};
-    //z-index: 100;
 `;
 
 const ProfilePic = styled.div`

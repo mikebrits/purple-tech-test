@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getWorkerById } from '../../selectors';
 import styled from 'styled-components';
+import { NodeContainer } from '../Graph/Node/Node';
 
 // Worker
 export default ({ id }) => {
@@ -12,17 +13,20 @@ export default ({ id }) => {
         currentStep,
         currentStepValue,
         profilePicture,
+        history,
     } = useSelector(getWorkerById(id));
 
     return (
         <Container ready={ready}>
-            
-                <ProfilePic src={profilePicture} alt={name} />
-                <div style={{width: 500}}>
-                    <Name>{name}</Name>
-                    {!ready ? (
+            <ProfilePic src={profilePicture} alt={name} />
+            <div style={{ width: 500 }}>
+                <Name>{name}</Name>
+                {!ready ? (
+                    <React.Fragment>
                         <TimerWrapper>
-                            <div style={{width: 150}}>Active Step: <b>{currentStep}</b></div>
+                            <div style={{ width: 150 }}>
+                                Active Step: <b>{currentStep}</b>
+                            </div>
 
                             <TimerContainer>
                                 <TimerValue value={(timeRemaining / currentStepValue) * 100} />
@@ -31,9 +35,15 @@ export default ({ id }) => {
                                 </TimeRemaining>
                             </TimerContainer>
                         </TimerWrapper>
-                    ) : null}
-                </div>
-            
+                    </React.Fragment>
+                ) : null}
+                <Steps>
+                    Steps Worked On:{' '}
+                    {history.map(step => (
+                        <NodeContainer small>{step}</NodeContainer>
+                    ))}{' '}
+                </Steps>
+            </div>
         </Container>
     );
 };
@@ -73,7 +83,6 @@ const TimerContainer = styled.div`
     border-radius: 2px;
     background-color: #dddddd;
     width: 500px;
-    
 `;
 
 const TimeRemaining = styled.div`
@@ -87,9 +96,20 @@ const TimerValue = styled.div`
     height: 5px;
     background-color: #41b141;
     border-radius: 2px;
-    width: ${({value}) => value + '%'};
+    width: ${({ value }) => value + '%'};
 `;
 
 const Name = styled.h3`
     margin: 4px 0;
+`;
+
+const Steps = styled.div`
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+    
+    .node{
+        font-weight: bold;
+    }
 `;
