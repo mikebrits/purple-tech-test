@@ -1,11 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCompletedNodes, getTimerActive, getTotalTime } from '../selectors';
+import { toggleTimerActive } from '../actions';
+import { NodeContainer } from './Graph/Node/Node';
 
 // Header
 export default ({}) => {
+    const timerActive = useSelector(getTimerActive);
+    const totalTime = useSelector(getTotalTime);
+    const completedNodes = useSelector(getCompletedNodes);
+    const dispatch = useDispatch();
+
+    const toggle = () => {
+        dispatch(toggleTimerActive());
+    };
+
     return (
         <Container>
-            <PlayButton><i className="fas fa-pause"/></PlayButton>
+            <Steps>
+                Steps:{' '}
+                {completedNodes && completedNodes.length
+                    ? completedNodes.map(step => <NodeContainer small>{step}</NodeContainer>)
+                    : '-'}
+            </Steps>
+            <PlayButton onClick={toggle}>
+                <i className={`fas fa-${timerActive ? 'pause' : 'play'}`} />
+            </PlayButton>
+            <Steps>Time: {totalTime}</Steps>
         </Container>
     );
 };
@@ -13,7 +35,18 @@ export default ({}) => {
 const Container = styled.div`
     background: #e5020b;
     height: 30px;
-    padding: 8px;
+    padding: 8px 16px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const Steps = styled.div`
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
 `;
 
 const PlayButton = styled.div`
@@ -30,4 +63,6 @@ const PlayButton = styled.div`
     left: 0;
     right: 0;
     box-shadow: 0 4px 6px #00000045;
+    cursor: pointer;
+    z-index: 20;
 `;

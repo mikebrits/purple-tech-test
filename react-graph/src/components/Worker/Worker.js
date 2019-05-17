@@ -18,24 +18,15 @@ export default ({ id }) => {
 
     return (
         <Container ready={ready}>
-            <ProfilePic src={profilePicture} alt={name} />
-            <div style={{ width: 500 }}>
-                <Name>{name}</Name>
+            <ProfilePic src={profilePicture} alt={name}>
+                {ready ? '' : <NodeContainer small>{currentStep}</NodeContainer>}
+            </ProfilePic>
+            <div style={{width: '100%'}}>
+                <Name>{name}</Name> {'  '}
                 {!ready ? (
-                    <React.Fragment>
-                        <TimerWrapper>
-                            <div style={{ width: 150 }}>
-                                Active Step: <b>{currentStep}</b>
-                            </div>
-
-                            <TimerContainer>
-                                <TimerValue value={(timeRemaining / currentStepValue) * 100} />
-                                <TimeRemaining>
-                                    Time Left: <b>{!timeRemaining ? 'N/A' : timeRemaining}</b>
-                                </TimeRemaining>
-                            </TimerContainer>
-                        </TimerWrapper>
-                    </React.Fragment>
+                    <TimerContainer>
+                        <TimerValue value={(timeRemaining / currentStepValue) * 100} />
+                    </TimerContainer>
                 ) : null}
                 <Steps>
                     Steps Worked On:{' '}
@@ -50,29 +41,27 @@ export default ({ id }) => {
 
 const Container = styled.div`
     padding: 8px;
-    width: 100%;
+    width: 400px;
     opacity: ${({ ready }) => (ready ? '0.3' : '1')};
     display: flex;
-    background: white;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
+    border: 1px solid black;
+    //border-radius: 5px;
     margin: 8px 0;
-    max-width: 615px;
+    max-width: 400px;
 `;
 
 const TimerWrapper = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    color: gray;
 `;
 
 const ProfilePic = styled.div`
     background-image: url('${({ src }) => src}');
     background-position: center center;
     background-size: cover;
-    width: 75px;
-    height: 75px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 1px solid #dddddd;
     margin-right: 16px;
@@ -81,12 +70,14 @@ const ProfilePic = styled.div`
 const TimerContainer = styled.div`
     height: 5px;
     border-radius: 2px;
-    background-color: #dddddd;
-    width: 500px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 `;
 
 const TimeRemaining = styled.div`
-    justify-self: flex-end;
+    //justify-self: flex-end;
     text-align: right;
     font-size: 11px;
     margin-top: 4px;
@@ -94,7 +85,7 @@ const TimeRemaining = styled.div`
 
 const TimerValue = styled.div`
     height: 5px;
-    background-color: #41b141;
+    background-color: #e5020b;
     border-radius: 2px;
     width: ${({ value }) => value + '%'};
 `;
@@ -108,8 +99,8 @@ const Steps = styled.div`
     display: flex;
     align-items: center;
     margin-top: 4px;
-    
-    .node{
+
+    .node {
         font-weight: bold;
     }
 `;

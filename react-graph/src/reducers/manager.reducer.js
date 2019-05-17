@@ -1,10 +1,12 @@
-import { INIT_MANAGER, INIT_WORKER, WORK, ASSIGN_STEP, RESET_WORKER } from '../actionsTypes';
+import {INIT_MANAGER, INIT_WORKER, WORK, ASSIGN_STEP, RESET_WORKER, TOGGLE_TIMER} from '../actionsTypes';
 import workerReducer from './worker.reducer';
 
 const defaultState = {
     workers: [],
     isBusy: true,
     initialised: false,
+    timerActive: false,
+    totalTime: 0
 };
 
 export default (state = defaultState, action) => {
@@ -46,7 +48,17 @@ export default (state = defaultState, action) => {
                     worker.id === action.payload ? workerReducer(worker, action) : worker,
                 ),
             };
+        case TOGGLE_TIMER:
+            return {
+                ...state,
+                timerActive: !state.timerActive
+            }
         case WORK:
+            return {
+                ...state,
+                totalTime: state.totalTime + 1,
+                workers: state.workers.map(worker => workerReducer(worker, action)),
+            };
         default:
             return {
                 ...state,

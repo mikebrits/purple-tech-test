@@ -31,7 +31,7 @@ export const NodeContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: ${({small}) => small ? '0 4px' : '16px 0'};
+    margin: ${({small}) => small ? '0 2px' : '16px 0'};
     position: relative;
     ${({active}) => (!active && `
         background: black;

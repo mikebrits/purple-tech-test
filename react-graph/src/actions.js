@@ -6,7 +6,7 @@ import {
     REMOVE_NODE,
     NODE_COMPLETE,
     RESET_WORKER,
-    ADD_NODE_REF
+    ADD_NODE_REF, TOGGLE_TIMER
 } from './actionsTypes';
 
 // Manager and Workers
@@ -30,6 +30,11 @@ export const resetWorker = (id) => ({
     type: RESET_WORKER,
     payload: id
 });
+
+export const toggleTimerActive = () => ({
+    type: TOGGLE_TIMER
+});
+
 
 
 // Graph 

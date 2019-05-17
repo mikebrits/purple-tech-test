@@ -23,5 +23,8 @@ export const getWorkerById = id => state => _.find(state.manager.workers, { id }
 export const getWorkersJustFinished = state =>
     _.filter(state.manager.workers, { timeRemaining: 0 });
 export const getWorkerByStep = step => state => state.manager.workers.filter(w => w.currentStep === step)[0];
+export const getTimerActive = state => state.manager.timerActive;
+export const getTotalTime = state => state.manager.totalTime;
+
 
 

@@ -37,12 +37,12 @@ export default (state = defaultState, action) => {
                 currentStep: action.payload,
                 timeRemaining: getStepValue(action.payload),
                 ready: false,
-                history: [...state.history, action.payload],
                 currentStepValue: getStepValue(action.payload)
             };
         case RESET_WORKER:
             return {
                 ...state,
+                history: [...state.history, state.currentStep],
                 timeRemaining: null,
                 currentStep: null,
                 ready: true,

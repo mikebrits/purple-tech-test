@@ -6,6 +6,7 @@ export const ADD_NODE_REF = 'ADD_NODE_REF';
 
 // Manager Actions
 export const INIT_MANAGER = 'INIT_MANAGER';
+export const TOGGLE_TIMER = 'TOGGLE_TIMER';
 
 //Worker Actions
 export const INIT_WORKER = 'INIT_WORKER';
