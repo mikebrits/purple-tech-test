@@ -11,7 +11,7 @@ export default ({ startNode, endNode, active, startNodeValue, endNodeValue }) =>
         <g>
             <path
                 className="edge-path"
-                stroke={'#cdcdcd'}
+                stroke={'black'}
                 fill="none"
                 ref={path}
                 d={`M ${startNode.offsetLeft + 25}, ${startNode.offsetTop + 13}
@@ -22,7 +22,7 @@ export default ({ startNode, endNode, active, startNodeValue, endNodeValue }) =>
             <Path
                 percentageComplete={percentageComplete}
                 className={active ? 'edge-path' : ''}
-                stroke={active ? '#41b141' : 'transparent'}
+                stroke={active ? '#e5020b' : 'transparent'}
                 fill="none"
                 ref={path}
                 strokeWidth={2}

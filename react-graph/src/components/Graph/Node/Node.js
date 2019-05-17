@@ -23,8 +23,7 @@ export default ({ step }) => {
 };
 
 export const NodeContainer = styled.div`
-    border: 1px solid gray;
-    color: gray;
+    border: 1px solid black;
     font-size: ${({small}) => small ? '9px' : '12px'};
     border-radius: 50px;
     height: ${({small}) => small ? '15px' : '25px'};
@@ -33,9 +32,12 @@ export const NodeContainer = styled.div`
     align-items: center;
     justify-content: center;
     margin: ${({small}) => small ? '0 4px' : '16px 0'};
-    background: white;
     position: relative;
-    opacity: ${({active}) => active ? 1 : 0.4};
+    ${({active}) => (!active && `
+        background: black;
+        color: white;
+    `)}
+    //z-index: 100;
 `;
 
 const ProfilePic = styled.div`

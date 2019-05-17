@@ -87,11 +87,12 @@ const Container = styled.div`
     align-items: center;
     z-index: 10;
     position: relative;
+    width: 950px;
+    margin: 0 auto;
 `;
 
 const NodeGroup = styled.div`
     padding: 20px;
-    background-color: #fafafa;
     height: 100%;
     //z-index: 100;
 `;
